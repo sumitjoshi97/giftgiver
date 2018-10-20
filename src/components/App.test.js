@@ -1,17 +1,37 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import App from './App'
+
 const app = shallow(<App />)
 
-it('renders correctly', () => {
-  expect(app).toMatchSnapshot()
-})
+describe('App', () => {
+  it('renders correctly', () => {
+    expect(app).toMatchSnapshot()
+  })
 
-it('initializes `state` with an empty list of gifts', () => {
-  expect(app.state().gifts).toEqual([])
-})
+  it('initializes `state` with an empty list of gifts', () => {
+    expect(app.state().gifts).toEqual([])
+  })
 
-it('adds a new gift to `state` when clicking `add gift` button', () => {
-  app.find('.btn-add').simulate('click')
-  expect(app.state().gifts).toEqual([{ id: 1 }])
+  describe('when clicking `add gift` button', () => {
+    beforeEach(() => {
+      app.find('.btn-add').simulate('click')
+    })
+
+    afterEach(() => {
+      app.setState({ gifts: [] })
+    })
+    it('adds a new gift to `state`', () => {
+      expect(app.state().gifts).toEqual([{ id: 1 }])
+    })
+
+    it('adds a new gift to rendered list', () => {
+      const giftsList = app.find('.gifts-list').children
+      expect(giftsList.length).toEqual(1)
+    })
+
+    it('creates a gift component', () => {
+      expect(app.find('Gift').length).toBe(1)
+    })
+  })
 })
