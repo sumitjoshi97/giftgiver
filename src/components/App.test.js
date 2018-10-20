@@ -5,6 +5,7 @@ import App from './App'
 const app = shallow(<App />)
 
 describe('App', () => {
+  const id = 1
   it('renders correctly', () => {
     expect(app).toMatchSnapshot()
   })
@@ -22,7 +23,7 @@ describe('App', () => {
       app.setState({ gifts: [] })
     })
     it('adds a new gift to `state`', () => {
-      expect(app.state().gifts).toEqual([{ id: 1 }])
+      expect(app.state().gifts).toEqual([{ id }])
     })
 
     it('adds a new gift to rendered list', () => {
@@ -32,6 +33,16 @@ describe('App', () => {
 
     it('creates a gift component', () => {
       expect(app.find('Gift').length).toBe(1)
+    })
+  })
+
+  describe('when user wants to remove added gift', () => {
+    beforeEach(() => {
+      app.instance().removeGift(id)
+    })
+
+    it('removes gift from `state`', () => {
+      expect(app.state().gifts).toEqual([])
     })
   })
 })
