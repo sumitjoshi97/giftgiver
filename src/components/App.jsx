@@ -15,14 +15,20 @@ class App extends Component {
     const maxId = ids.length > 0 ? Math.max(...ids) : 0
 
     gifts.push({ id: maxId + 1 })
-    this.setState(() => ({
-      gifts
-    }))
+    this.setState(() => ({ gifts }))
+  }
+
+  removeGift = id => {
+    const gifts = this.state.gifts.filter(gift => gift.id !== id)
+    this.setState(() => ({ gifts }))
   }
 
   renderGifts = () => {
     return this.state.gifts.map(gift => (
-      <Gift key={gift.id} />
+      <Gift 
+        key={gift.id} 
+        gift={gift} 
+        removeGift={this.removeGift} />
     ))
   }
 
