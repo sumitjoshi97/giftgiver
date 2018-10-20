@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Button } from 'react-bootstrap'
+import Gift from './Gift/Gift'
 
 class App extends Component {
   state = {
@@ -18,10 +19,18 @@ class App extends Component {
       gifts
     }))
   }
+
+  renderGifts = () => {
+    return this.state.gifts.map(gift => (
+      <Gift key={gift.id} />
+    ))
+  }
+
   render() {
     return (
       <div>
         <h2>Gift Giver</h2>
+        <div className="gifts-list">{this.renderGifts()}</div>
         <Button className="btn-add" onClick={this.addGift}>
           Add Gift
         </Button>
