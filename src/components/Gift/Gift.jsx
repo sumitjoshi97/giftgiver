@@ -13,11 +13,11 @@ class Gift extends Component {
     present: ''
   }
 
-  onInputChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    })
-  }
+  // onInputChange = e => {
+  //   this.setState({
+  //     [e.target.name]: e.target.value
+  //   })
+  // }
 
   render() {
     return (
